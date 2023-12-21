@@ -25,16 +25,17 @@ for (int i = 0; i < inputToArray.Length; i++)
         string currentLine = newLine[j];
         string[] currentLine2 = currentLine.Split("; ");
         
+
         for (int k = 0; k < currentLine2.Length; k++)
         {
            
             string[] chekHend = currentLine2[k].Split("\n");
-           
+            
+
             for (int l = 0; l < chekHend.Length; l++)
             {
                
                 string inside = chekHend[l];
-
                 int redInHand = 0;
                 int blueInHand = 0;
                 int greenInHand = 0;
@@ -143,14 +144,14 @@ for (int i = 0; i < inputToArray.Length; i++)
 
                 }
 
-                if (redInHand <= redPossibleGame && blueInHand <= bluePossibleGame && greenInHand <= greenPossibleGame)
+                if (redInHand < redPossibleGame && blueInHand < bluePossibleGame && greenInHand < greenPossibleGame)
                 {
 
                     
 
                 }else
                 {
-                    chek += 1;
+                    chek++;
                 }
                 
 
@@ -159,7 +160,6 @@ for (int i = 0; i < inputToArray.Length; i++)
            
 
         }
-
         if (chek == 0)
         {
             string[] newArr = current.Split("Game ");
@@ -167,14 +167,14 @@ for (int i = 0; i < inputToArray.Length; i++)
             string[] s2 = s.Split(":");
             string s3 = string.Join(" ", s2);
             string[] s4 = s3.Split(" ");
-            string s5 = string.Join("", s4);
             Console.WriteLine(current);
             string possibleNumberOfGame = s4[1];
             idOfThePossibleGames += int.Parse(possibleNumberOfGame);
 
-            
+
         }
         chek = 0;
+
 
 
     }
