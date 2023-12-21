@@ -68,7 +68,7 @@ for (int i = 0; i < inputToArray.Length; i++)
                                 continue;
                             }
 
-                            if (m + 6 <= inside.Length)
+                            if (m + 6 < inside.Length)
                             {
                                 string fourthLetter = inside[m + 6].ToString();
                                 currentWord += $"{fourthLetter}";
@@ -78,7 +78,7 @@ for (int i = 0; i < inputToArray.Length; i++)
                                     m++;
                                     continue;
                                 }
-                                if (m+ 7 <= inside.Length)
+                                if (m+ 7 < inside.Length)
                                 {
 
                                     string fifthLetter = inside[m + 7].ToString();
@@ -86,7 +86,7 @@ for (int i = 0; i < inputToArray.Length; i++)
                                     if (currentWord == "green")
                                     {
                                         greenInHand += currentDigit;
-                                        k++;
+                                        m++;
                                         continue;
                                     }
                                 }
@@ -95,52 +95,48 @@ for (int i = 0; i < inputToArray.Length; i++)
                             }
 
                         }
-                    }
 
-
-
-
-                    if (Char.IsDigit(currentChar))
-                    {
-                        int currentDigit = int.Parse($"{currentChar}");
-                        string firstLetter = inside[m + 2].ToString();
-                        string secondLetter = inside[m + 3].ToString();
-                        string thirdLetter = inside[m + 4].ToString();
-
-                        currentWord += $"{firstLetter}{secondLetter}{thirdLetter}";
-                        if (currentWord == "red")
+                        if (Char.IsDigit(currentChar))
                         {
-                            redInHand += currentDigit;
-                            continue;
-                        }
-                        if (m + 5 < inside.Length)
-                        {
-                            string fourthLetter = inside[m + 5].ToString();
-                            currentWord += $"{fourthLetter}";
-                            if (currentWord == "blue")
+                            int currentDigit = int.Parse($"{currentChar}");
+                            string firstLetter = inside[m + 2].ToString();
+                            string secondLetter = inside[m + 3].ToString();
+                            string thirdLetter = inside[m + 4].ToString();
+
+                            currentWord += $"{firstLetter}{secondLetter}{thirdLetter}";
+                            if (currentWord == "red")
                             {
-                                blueInHand += currentDigit;
+                                redInHand += currentDigit;
                                 continue;
                             }
-
-                            if (m + 6 < inside.Length)
+                            if (m + 5 < inside.Length)
                             {
-
-                                string fifthLetter = inside[m + 6].ToString();
-                                currentWord += $"{fifthLetter}";
-                                if (currentWord == "green")
+                                string fourthLetter = inside[m + 5].ToString();
+                                currentWord += $"{fourthLetter}";
+                                if (currentWord == "blue")
                                 {
-                                    greenInHand += currentDigit;
+                                    blueInHand += currentDigit;
                                     continue;
                                 }
+
+                                if (m + 6 < inside.Length)
+                                {
+
+                                    string fifthLetter = inside[m + 6].ToString();
+                                    currentWord += $"{fifthLetter}";
+                                    if (currentWord == "green")
+                                    {
+                                        greenInHand += currentDigit;
+                                        continue;
+                                    }
+                                }
+
+
                             }
 
 
                         }
-
-
                     }
-
 
 
                 }
