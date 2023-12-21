@@ -6,8 +6,9 @@ string[] inputToArray = input.Split("\n");
 
 
 int redPossibleGame = 12;
-int bluePossibleGame = 14;
 int greenPossibleGame = 13;
+int bluePossibleGame = 14;
+
 
 int idOfThePossibleGames = 0;
 
@@ -23,18 +24,18 @@ for (int i = 0; i < inputToArray.Length; i++)
     {
         
         string currentLine = newLine[j];
+        
         string[] currentLine2 = currentLine.Split("; ");
         
 
         for (int k = 0; k < currentLine2.Length; k++)
         {
-           
+            
             string[] chekHend = currentLine2[k].Split("\n");
             
 
             for (int l = 0; l < chekHend.Length; l++)
             {
-               
                 string inside = chekHend[l];
                 int redInHand = 0;
                 int blueInHand = 0;
@@ -167,7 +168,6 @@ for (int i = 0; i < inputToArray.Length; i++)
             string[] s2 = s.Split(":");
             string s3 = string.Join(" ", s2);
             string[] s4 = s3.Split(" ");
-            Console.WriteLine(current);
             string possibleNumberOfGame = s4[1];
             idOfThePossibleGames += int.Parse(possibleNumberOfGame);
 
