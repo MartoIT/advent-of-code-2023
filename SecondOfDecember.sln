@@ -5,7 +5,9 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecondOfDecember", "SecondOfDecember\SecondOfDecember.csproj", "{E9392C18-1DD0-4A73-A3CF-BE45C3B29FF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asideNotes", "asideNotes\asideNotes.csproj", "{DA07317D-1F6F-4244-A39E-0B03BF731314}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asideNotes", "asideNotes\asideNotes.csproj", "{DA07317D-1F6F-4244-A39E-0B03BF731314}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThirdOfDecember", "ThirdOfDecember\ThirdOfDecember.csproj", "{E03D7615-9DA4-4259-A04E-A41C857BD645}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{DA07317D-1F6F-4244-A39E-0B03BF731314}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA07317D-1F6F-4244-A39E-0B03BF731314}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA07317D-1F6F-4244-A39E-0B03BF731314}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E03D7615-9DA4-4259-A04E-A41C857BD645}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E03D7615-9DA4-4259-A04E-A41C857BD645}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E03D7615-9DA4-4259-A04E-A41C857BD645}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E03D7615-9DA4-4259-A04E-A41C857BD645}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
