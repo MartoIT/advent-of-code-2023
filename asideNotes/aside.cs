@@ -1,183 +1,170 @@
 ﻿
-//string input = File.ReadAllText("D:\\advent-of-code-2023\\SecondOfDecember\\input.txt");
-string input = File.ReadAllText("C:\\Мартин\\Moi\\advent of code\\SecondOfDecember\\SecondOfDecember\\input.txt");
-
-string[] inputToArray = input.Split("\n");
-
+string input = File.ReadAllText("D:\\advent-of-code-2023\\SecondOfDecember\\input.txt");
+//string input = File.ReadAllText("C:\\Мартин\\Moi\\advent of code\\SecondOfDecember\\SecondOfDecember\\input.txt");
 
 int redPossibleGame = 12;
 int greenPossibleGame = 13;
 int bluePossibleGame = 14;
 
+int redInHand = 0;
+int blueInHand = 0;
+int greenInHand = 0;
 
 int idOfThePossibleGames = 0;
-
 int chek = 0;
+int doubleChek = 0;
 
-for (int i = 0; i < inputToArray.Length; i++)
+string[] line = input.Split("Game ");
+string line2 = string.Join("", line);
+string[] line3 = line2.Split(": ");
+string line4 = string.Join(" ", line3);
+string[] line5 = line4.Split("\n");
+
+for (int i = 0; i < line5.Length; i++)
 {
-
-    string current = inputToArray[i];
-    string[] newLine = current.Split(": ");
-
-    for (int j = 1; j < newLine.Length; j += 2)
+    string[] current = line5[i].Split(' ', 2);
+    for (int j = 1; j < current.Length; j++)
     {
-
-        string currentLine = newLine[j];
-
-        string[] currentLine2 = currentLine.Split("; ");
+        string indexOfGame = current[0];
+        string[] lineOfCurrentGame = current[1].Split("; ");
 
 
-        for (int k = 0; k < currentLine2.Length; k++)
+        for (int k = 0; k < lineOfCurrentGame.Length; k++)
         {
+            redInHand = 0;
+            blueInHand = 0;
+            greenInHand = 0;
+            string currentHand = lineOfCurrentGame[k];
 
-            string[] chekHend = currentLine2[k].Split("\n");
-
-
-            for (int l = 0; l < chekHend.Length; l++)
+            for (int l = 0; l < currentHand.Length; l++)
             {
-                string inside = chekHend[l];
-                int redInHand = 0;
-                int blueInHand = 0;
-                int greenInHand = 0;
+                string currentColor = "";
+                int currentDigit;
+                char currentSymbol = currentHand[l];
 
-                for (int m = 0; m < inside.Length; m++)
+                if (l + 1 < currentHand.Length)
                 {
-
-                    string currentWord = "";
-                    char currentChar = inside[m];
-
-                    if (m + 1 < inside.Length)
+                    char nextSymbol = currentHand[l + 1];
+                    if (Char.IsDigit(currentSymbol) && Char.IsDigit(nextSymbol))
                     {
+                        currentDigit = int.Parse($"{currentSymbol}{nextSymbol}");
 
-                        char nextChar = inside[m + 1];
-                        if (Char.IsDigit(currentChar) && Char.IsDigit(nextChar))
+                        string firstLetter = currentHand[l + 3].ToString();
+                        string secondLetter = currentHand[l + 4].ToString();
+                        string thirdLetter = currentHand[l + 5].ToString();
+
+                        currentColor += $"{firstLetter}{secondLetter}{thirdLetter}";
+
+                        if (currentColor == "red")
                         {
+                            redInHand += currentDigit;
+                            l++;
+                            continue;
+                        }
 
-                            int currentDigit = int.Parse($"{currentChar}{nextChar}");
-                            string firstLetter = inside[m + 3].ToString();
-                            string secondLetter = inside[m + 4].ToString();
-                            string thirdLetter = inside[m + 5].ToString();
 
-                            currentWord += $"{firstLetter}{secondLetter}{thirdLetter}";
-
-                            if (currentWord == "red")
+                        if (l + 6 < currentHand.Length)
+                        {
+                            string fourthLetter = currentHand[l + 6].ToString();
+                            currentColor += $"{fourthLetter}";
+                            if (currentColor == "blue")
                             {
-                                redInHand += currentDigit;
-                                m++;
+                                blueInHand += currentDigit;
+                                l++;
                                 continue;
                             }
 
-                            if (m + 6 < inside.Length)
+                            if (l + 7 < currentHand.Length)
                             {
-                                string fourthLetter = inside[m + 6].ToString();
-                                currentWord += $"{fourthLetter}";
-                                if (currentWord == "blue")
+
+                                string fifthLetter = currentHand[l + 7].ToString();
+                                currentColor += $"{fifthLetter}";
+                                if (currentColor == "green")
                                 {
-                                    blueInHand += currentDigit;
-                                    m++;
+                                    greenInHand += currentDigit;
+                                    l++;
                                     continue;
                                 }
-                                if (m + 7 < inside.Length)
-                                {
-
-                                    string fifthLetter = inside[m + 7].ToString();
-                                    currentWord += $"{fifthLetter}";
-                                    if (currentWord == "green")
-                                    {
-                                        greenInHand += currentDigit;
-                                        m++;
-                                        continue;
-                                    }
-                                }
-
-
                             }
 
                         }
+                    }
+                    else if (Char.IsDigit(currentSymbol))
+                    {
+                        currentDigit = int.Parse($"{currentSymbol}");
+                        string firstLetter = currentHand[l + 2].ToString();
+                        string secondLetter = currentHand[l + 3].ToString();
+                        string thirdLetter = currentHand[l + 4].ToString();
 
-                        if (Char.IsDigit(currentChar))
+                        currentColor += $"{firstLetter}{secondLetter}{thirdLetter}";
+                        if (currentColor == "red")
                         {
-                            int currentDigit = int.Parse($"{currentChar}");
-                            string firstLetter = inside[m + 2].ToString();
-                            string secondLetter = inside[m + 3].ToString();
-                            string thirdLetter = inside[m + 4].ToString();
+                            redInHand += currentDigit;
+                            continue;
+                        }
 
-                            currentWord += $"{firstLetter}{secondLetter}{thirdLetter}";
-                            if (currentWord == "red")
+                        if (l + 5 < currentHand.Length)
+                        {
+                            string fourthLetter = currentHand[l + 5].ToString();
+                            currentColor += $"{fourthLetter}";
+                            if (currentColor == "blue")
                             {
-                                redInHand += currentDigit;
+                                blueInHand += currentDigit;
                                 continue;
                             }
-                            if (m + 5 < inside.Length)
+
+                            if (l + 6 < currentHand.Length)
                             {
-                                string fourthLetter = inside[m + 5].ToString();
-                                currentWord += $"{fourthLetter}";
-                                if (currentWord == "blue")
+
+                                string fifthLetter = currentHand[l + 6].ToString();
+                                currentColor += $"{fifthLetter}";
+                                if (currentColor == "green")
                                 {
-                                    blueInHand += currentDigit;
+                                    greenInHand += currentDigit;
                                     continue;
                                 }
-
-                                if (m + 6 < inside.Length)
-                                {
-
-                                    string fifthLetter = inside[m + 6].ToString();
-                                    currentWord += $"{fifthLetter}";
-                                    if (currentWord == "green")
-                                    {
-                                        greenInHand += currentDigit;
-                                        continue;
-                                    }
-                                }
-
-
                             }
 
 
                         }
                     }
-
-
-                }
-
-                if (redInHand < redPossibleGame && blueInHand < bluePossibleGame && greenInHand < greenPossibleGame)
-                {
-
-
-
-                }
-                else
-                {
-                    chek++;
+                    else
+                    {
+                        continue;
+                    }
                 }
 
 
             }
-
-
+            if ((redInHand <= redPossibleGame) && (blueInHand <= bluePossibleGame) && (greenInHand <= greenPossibleGame))
+            {
+                chek = 0;
+            }
+            else
+            {
+                chek = 1;
+                doubleChek++;
+            }
 
         }
-        if (chek == 0)
+
+
+
+        if (doubleChek == 0)
         {
-            string[] newArr = current.Split("Game ");
-            string s = string.Join(" ", newArr);
-            string[] s2 = s.Split(":");
-            string s3 = string.Join(" ", s2);
-            string[] s4 = s3.Split(" ");
-            string possibleNumberOfGame = s4[1];
-            idOfThePossibleGames += int.Parse(possibleNumberOfGame);
+
+            idOfThePossibleGames += int.Parse(indexOfGame);
 
 
         }
+        doubleChek = 0;
         chek = 0;
-
 
 
     }
 
-
-
 }
 
+
 Console.WriteLine(idOfThePossibleGames);
+
