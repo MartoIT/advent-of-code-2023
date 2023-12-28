@@ -1,12 +1,12 @@
-﻿string input = File.ReadAllText("D:\\advent-of-code-2023\\ThirdOfDecember\\input.txt");
-//string input = File.ReadAllText("C:\\Мартин\\Moi\\advent of code\\SecondOfDecember\\SecondOfDecember\\input.txt");
+﻿//string input = File.ReadAllText("D:\\advent-of-code-2023\\ThirdOfDecember\\input.txt");
+string input = File.ReadAllText("C:\\Мартин\\Moi\\advent of code\\SecondOfDecember\\ThirdOfDecember\\input.txt");
 
 string[] array = input.Split('\n');
 int firstLine = 0;
 int lastLine = 0;
 
 
-
+Console.WriteLine(input);
 
 for (int i = 0; i < array.Length; i++)
 {
@@ -28,7 +28,7 @@ for (int i = 0; i < array.Length; i++)
         char previousSymbol = '\0';
         char endSymbol = '\0';
 
-        
+
         if (Char.IsDigit(currentSymbol))
         {
             currentDigit = int.Parse($"{currentSymbol}");
@@ -53,7 +53,7 @@ for (int i = 0; i < array.Length; i++)
                         currentDigit = int.Parse($"{currentSymbol}{secondSymbol}{thirdSymbol}");
                         j++;
                     }
-                   
+
 
                 }
 

@@ -1,6 +1,6 @@
 ﻿
-string input = File.ReadAllText("D:\\advent-of-code-2023\\SecondOfDecember\\input.txt");
-//string input = File.ReadAllText("C:\\Мартин\\Moi\\advent of code\\SecondOfDecember\\SecondOfDecember\\input.txt");
+//string input = File.ReadAllText("D:\\advent-of-code-2023\\SecondOfDecember\\input.txt");
+string input = File.ReadAllText("C:\\Мартин\\Moi\advent of code\\SecondOfDecember\\ThirdOfDecember\\input.txt");
 
 int redPossibleGame = 12;
 int greenPossibleGame = 13;
