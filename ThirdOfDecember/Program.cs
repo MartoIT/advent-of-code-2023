@@ -1,5 +1,5 @@
-﻿//string input = File.ReadAllText("D:\\advent-of-code-2023\\ThirdOfDecember\\input.txt");
-string input = File.ReadAllText("C:\\Мартин\\Moi\\advent of code\\SecondOfDecember\\ThirdOfDecember\\input.txt");
+﻿string input = File.ReadAllText("D:\\advent-of-code-2023\\ThirdOfDecember\\input.txt");
+//string input = File.ReadAllText("C:\\Мартин\\Moi\\advent of code\\SecondOfDecember\\ThirdOfDecember\\input.txt");
 
 string[] array = input.Split('\n');
 int firstLine = 0;
@@ -185,17 +185,15 @@ for (int i = 0; i < array.Length; i++)
                     insideEndIndex = l;
 
                     string insideRight = array[i + 2];
-                    if (insideRight[l - 3] >= 0)
-                    {
-                        insideStartIndex = l - 3;
-                    }
-                    else if (insideRight[l - 2] >= 0)
+
+                    if (insideRight[l - 2] >= 0)
                     {
                         insideStartIndex = l - 2;
                     }
                     else if (insideRight[l - 1] >= 0)
                     {
                         insideStartIndex = l - 1;
+
                     }
                     else
                     {
@@ -203,11 +201,7 @@ for (int i = 0; i < array.Length; i++)
                     }
                     ///////////////////////////////////////////////////////
 
-                    if (insideEndIndex + 3 <= insideRight.Length)
-                    {
-                        insideEndIndex = l + 3;
-                    }
-                    else if (insideEndIndex + 2 <= insideRight.Length)
+                    if (insideEndIndex + 2 <= insideRight.Length)
                     {
                         insideEndIndex = l + 2;
                     }
@@ -285,28 +279,28 @@ for (int i = 0; i < array.Length; i++)
                         {
                             if (nestedIndexOf == -1)
                             {
-                                nestedIndexOf2 = m;
+                                nestedIndexOf = m;
                             }
 
                             if (m + 1 < insideRight.Length)
                             {
                                 nestedIndexOf2 = m + 1;
                             }
-                            else
-                            {
-                                nestedIndexOf2 = m;
-                            }
+                            
                         }
 
 
-                        if (nestedDigit != 0 && nestedIndexOf - 1 <= l && nestedIndexOf2 + 1 < l)
+                        if (nestedDigit != 0)
                         {
 
+                            if ( (nestedIndexOf - 1 <= l || l > nestedIndexOf2) && nestedIndexOf2 != -1)
+                            {
+                                multiplying = currentDigit * nestedDigit;
+                                Console.WriteLine(currentDigit);
+                                Console.WriteLine(nestedDigit);
+                                digitPartFromEngine += multiplying;
 
-                            multiplying = currentDigit * nestedDigit;
-                            Console.WriteLine(currentDigit);
-                            Console.WriteLine(nestedDigit);
-                            digitPartFromEngine += multiplying;
+                            }
 
                         }
 
