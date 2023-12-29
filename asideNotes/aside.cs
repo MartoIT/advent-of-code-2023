@@ -179,3 +179,12 @@ for (int i = 0; i < array.Length; i++)
 
 
 Console.WriteLine(digitPartFromEngine);
+
+
+//if (m + 1 == l || nestedIndexOf - 1 == l || nestedIndexOf == l || nestedIndexOf2 == l)
+//{
+//    multiplying = currentDigit * nestedDigit;
+//    Console.WriteLine(currentDigit);
+//    Console.WriteLine(nestedDigit);
+//    digitPartFromEngine += multiplying;
+//}

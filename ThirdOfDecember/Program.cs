@@ -237,7 +237,7 @@ for (int i = 0; i < array.Length; i++)
                         if (m + 1 < insideRight.Length)
                         {
                             char nestedSecondSymbol = insideRight[m + 1];
-                            
+
                             if (Char.IsDigit(nestedSymbol) && Char.IsDigit(nestedSecondSymbol))
                             {
                                 nestedDigit = int.Parse($"{nestedSymbol}{nestedSecondSymbol}");
@@ -299,16 +299,15 @@ for (int i = 0; i < array.Length; i++)
                         }
 
 
-                        if (nestedDigit != 0)
+                        if (nestedDigit != 0 )
                         {
 
-                            if (m + 1 == l || nestedIndexOf - 1 == l || nestedIndexOf == l || m - 1 == l)
-                            {
-                                multiplying = currentDigit * nestedDigit;
-                                Console.WriteLine(currentDigit);
-                                Console.WriteLine(nestedDigit);
-                                digitPartFromEngine += multiplying;
-                            }
+
+                            multiplying = currentDigit * nestedDigit;
+                            Console.WriteLine(currentDigit);
+                            Console.WriteLine(nestedDigit);
+                            digitPartFromEngine += multiplying;
+
                         }
 
 
@@ -321,7 +320,7 @@ for (int i = 0; i < array.Length; i++)
             }
         }
 
-        
+
 
     }
 
