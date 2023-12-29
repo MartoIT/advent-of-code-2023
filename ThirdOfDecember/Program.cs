@@ -7,6 +7,8 @@ int lastLine = 0;
 bool enginPart = false;
 int digitPartFromEngine = 0;
 
+bool gotAGear = false;
+
 for (int i = 0; i < array.Length; i++)
 {
     string currentRow = array[i];
@@ -28,12 +30,18 @@ for (int i = 0; i < array.Length; i++)
     {
         enginPart = false;
         int currentDigit = 0;
+        int nextDigit = 0;
         char currentSymbol = currentRow[j];
+        char nextSymbol = '\0';
         char previousSymbol = '\0';
         char afterSymbol = '\0';
 
+        int multiplying = 0;
         int startIndex = -1;
         int endIndex = -1;
+
+        int insideStartIndex = -1;
+        int insideEndIndex = -1;
 
 
         if (Char.IsDigit(currentSymbol))
@@ -41,13 +49,8 @@ for (int i = 0; i < array.Length; i++)
             currentDigit = int.Parse($"{currentSymbol}");
             if (j > 0)
             {
-                previousSymbol = currentRow[j - 1];
                 startIndex = j - 1;
-                if (previousSymbol != '.' && !Char.IsDigit(previousSymbol) && previousSymbol != '\0' && previousSymbol != '\r' && previousSymbol != 0)
-                {
-
-                    enginPart = true;
-                }
+             
             }
         }
 
@@ -59,7 +62,7 @@ for (int i = 0; i < array.Length; i++)
             {
                 currentDigit = int.Parse($"{currentSymbol}{secondSymbol}");
                 j++;
-                if(startIndex == -1)
+                if (startIndex == -1)
                 {
                     startIndex = j;
                 }
@@ -80,7 +83,7 @@ for (int i = 0; i < array.Length; i++)
                     {
                         currentDigit = int.Parse($"{currentSymbol}{secondSymbol}{thirdSymbol}");
                         j++;
-                        if(j + 1 < currentRow.Length)
+                        if (j + 1 < currentRow.Length)
                         {
                             endIndex = j + 1;
                         }
@@ -88,7 +91,7 @@ for (int i = 0; i < array.Length; i++)
                         {
                             endIndex = j;
                         }
-                        
+
                     }
 
 
@@ -116,35 +119,59 @@ for (int i = 0; i < array.Length; i++)
 
         if (j + 1 < currentRow.Length)
         {
-            afterSymbol = currentRow[j + 1];
-            if (afterSymbol != '.' && !Char.IsDigit(afterSymbol) && afterSymbol != '\0' && afterSymbol != '\r' && currentDigit != 0)
+            j++;
+            afterSymbol = currentRow[j];
+            if (afterSymbol == '*')
             {
-                
-                enginPart = true;
-                j++;
-            }
-        }
-
-        
-        if (firstLine == 0 && currentDigit != 0 && startIndex != -1 && endIndex != -1)
-        {
-            string rowBefor = array[i - 1];
-            for (int k = startIndex; k <= endIndex; k++)
-            {
-                char symbolInRowAbove = rowBefor[k];
-                if(symbolInRowAbove != '.' && !Char.IsDigit(symbolInRowAbove) && symbolInRowAbove != '\0' && symbolInRowAbove != '\r')
+                if (j + 1 < currentRow.Length)
                 {
-                  
-                    enginPart = true;
-                    
-                }
-              
+                    j++;
+                    nextSymbol = currentRow[j];
 
-                
+                    if (Char.IsDigit(nextSymbol))
+                    {
+                        nextDigit = int.Parse($"{nextSymbol}");
+
+                    }
+
+                    if (j + 1 < currentRow.Length)
+                    {
+                        char nextSecondSymbol = currentRow[j + 1];
+
+                        if (Char.IsDigit(nextSymbol) && Char.IsDigit(nextSecondSymbol))
+                        {
+                            nextDigit = int.Parse($"{nextSymbol}{nextSecondSymbol}");
+                            j++;
+
+                            if (j + 1 < currentRow.Length)
+                            {
+                                char nextThirdSymbol = currentRow[j + 1];
+
+                                if (Char.IsDigit(nextSymbol) && Char.IsDigit(nextSecondSymbol) && Char.IsDigit(nextThirdSymbol))
+                                {
+                                    nextDigit = int.Parse($"{nextSymbol}{nextSecondSymbol}{nextThirdSymbol}");
+                                    j++;
+                                }
+
+
+                            }
+
+                        }
+
+
+                    }
+                }
+
             }
         }
 
-       
+        if (currentDigit != 0 && nextDigit != 0)
+        {
+            multiplying = currentDigit * nextDigit;
+            Console.WriteLine(multiplying);
+
+        }
+
 
         if (lastLine == 0 && currentDigit != 0 && startIndex != -1 && endIndex != -1)
         {
@@ -152,10 +179,31 @@ for (int i = 0; i < array.Length; i++)
             for (int l = startIndex; l <= endIndex; l++)
             {
                 char symbolInRowUnder = rowAfter[l];
-                if (symbolInRowUnder != '.' && !Char.IsDigit(symbolInRowUnder) && symbolInRowUnder != '\0' && symbolInRowUnder != '\r')
+                if (symbolInRowUnder != '*')
                 {
-                    
-                    enginPart = true;
+                    insideStartIndex = l;
+                    insideEndIndex = l;
+
+                    string insideRight = array[i + 2];
+                    if(insideEndIndex + 3 <= insideRight.Length)
+                    {
+                        insideEndIndex = l + 3;
+                    }else if(insideEndIndex + 2 <= insideRight.Length)
+                    {
+                        insideEndIndex = l + 2;
+                    }
+                    else if (insideEndIndex + 1 <= insideRight.Length)
+                    {
+                        insideEndIndex = l + 1;
+                    }else
+                    {
+                        insideEndIndex = l;
+                    }
+
+                    for (int m = insideStartIndex; m <= insideEndIndex; m++)
+                    {
+                       
+                    }
 
                 }
 
@@ -164,17 +212,17 @@ for (int i = 0; i < array.Length; i++)
             }
         }
 
-        if (enginPart)
-        {
-           
-            digitPartFromEngine += currentDigit;
-            continue;
-        }
+        //if (enginPart)
+        //{
+
+        //    digitPartFromEngine += currentDigit;
+        //    continue;
+        //}
 
 
     }
 
-   
+
 }
 
 
