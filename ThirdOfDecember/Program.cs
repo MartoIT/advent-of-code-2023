@@ -299,7 +299,7 @@ for (int i = 0; i < array.Length; i++)
                         }
 
 
-                        if (nestedDigit != 0 )
+                        if (nestedDigit != 0 && nestedIndexOf - 1 <= l && nestedIndexOf2 + 1 < l)
                         {
 
 
