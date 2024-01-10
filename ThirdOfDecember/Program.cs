@@ -1,5 +1,5 @@
-﻿string input = File.ReadAllText("D:\\advent-of-code-2023\\ThirdOfDecember\\input.txt");
-//string input = File.ReadAllText("C:\\Мартин\\Moi\\advent of code\\SecondOfDecember\\ThirdOfDecember\\input.txt");
+﻿//string input = File.ReadAllText("D:\\advent-of-code-2023\\ThirdOfDecember\\input.txt");
+string input = File.ReadAllText("C:\\Мартин\\Moi\\advent of code\\SecondOfDecember\\ThirdOfDecember\\input.txt");
 
 string[] array = input.Split('\n');
 int firstLine = 0;
@@ -61,12 +61,12 @@ for (int i = 0; i < array.Length; i++)
             if (Char.IsDigit(currentSymbol) && Char.IsDigit(secondSymbol))
             {
                 currentDigit = int.Parse($"{currentSymbol}{secondSymbol}");
-                j++;
+
                 if (startIndex == -1)
                 {
                     startIndex = j;
                 }
-
+                j++;
                 if (j + 1 < currentRow.Length)
                 {
                     endIndex = j + 1;
@@ -186,9 +186,14 @@ for (int i = 0; i < array.Length; i++)
 
                     string insideRight = array[i + 2];
 
-                    if (insideRight[l - 2] >= 0)
+                    if (insideRight[l - 3] >= 0)
+                    {
+                        insideStartIndex = l - 3;
+                    }
+                    else if (insideRight[l - 2] >= 0)
                     {
                         insideStartIndex = l - 2;
+
                     }
                     else if (insideRight[l - 1] >= 0)
                     {
@@ -201,7 +206,11 @@ for (int i = 0; i < array.Length; i++)
                     }
                     ///////////////////////////////////////////////////////
 
-                    if (insideEndIndex + 2 <= insideRight.Length)
+                    if (insideEndIndex + 3 <= insideRight.Length)
+                    {
+                        insideEndIndex = l + 3;
+                    }
+                    else if (insideEndIndex + 2 <= insideRight.Length)
                     {
                         insideEndIndex = l + 2;
                     }
@@ -228,7 +237,7 @@ for (int i = 0; i < array.Length; i++)
                             nestedIndexOf = m;
                         }
 
-                        if (m + 1 < insideRight.Length)
+                        if (m + 1 < insideRight.Length && m + 1 <= insideEndIndex)
                         {
                             char nestedSecondSymbol = insideRight[m + 1];
 
@@ -251,7 +260,7 @@ for (int i = 0; i < array.Length; i++)
                                 }
 
 
-                                if (m + 1 < currentRow.Length)
+                                if (m + 1 < insideRight.Length && m + 1 <= insideEndIndex)
                                 {
                                     char nestedThirdSymbol = insideRight[m + 1];
 
@@ -286,21 +295,43 @@ for (int i = 0; i < array.Length; i++)
                             {
                                 nestedIndexOf2 = m + 1;
                             }
-                            
+
                         }
 
 
-                        if (nestedDigit != 0)
+                        if (nestedDigit != 0 && l + 1 >= nestedIndexOf)
                         {
 
-                            if ( (nestedIndexOf - 1 <= l || l > nestedIndexOf2) && nestedIndexOf2 != -1)
+                            if (nestedIndexOf < l)
                             {
-                                multiplying = currentDigit * nestedDigit;
-                                Console.WriteLine(currentDigit);
-                                Console.WriteLine(nestedDigit);
-                                digitPartFromEngine += multiplying;
+                                char someChar = insideRight[l - 1];
+                                Console.WriteLine(someChar);
+                                if (Char.IsDigit(someChar))
+                                {
+
+                                    multiplying = currentDigit * nestedDigit;
+                                    Console.WriteLine(currentDigit);
+                                    Console.WriteLine(nestedDigit);
+                                    digitPartFromEngine += multiplying;
+                                }
+                            }
+
+                            if (nestedIndexOf >= l)
+                            {
+                                char someChar = insideRight[l + 1];
+                                if (Char.IsDigit(someChar))
+                                {
+                                    multiplying = currentDigit * nestedDigit;
+                                    Console.WriteLine(currentDigit);
+                                    Console.WriteLine(nestedDigit);
+                                    digitPartFromEngine += multiplying;
+                                }
 
                             }
+
+
+
+
 
                         }
 
