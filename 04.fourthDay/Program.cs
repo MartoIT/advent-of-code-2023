@@ -10,6 +10,8 @@
 
             int points = 0;
             int total = 0;
+            int coppyOfWinningCards = 0;
+            int original = 0;
             for (int i = 0; i < input.Length; i++)
             {
                 string[] tokens = input[i].Split(":");
@@ -23,16 +25,19 @@
                 List<string> numbersElfHave = rightSide.Split(" ").ToList();
                 numbersElfHave.RemoveAll(s => string.IsNullOrWhiteSpace(s));
 
-
+                int some = 0;
                 for (int j = 0; j < winningNumbers.Count; j++)
                 {
+                   
                     int currentWiningNumber = int.Parse(winningNumbers[j]);
-
+                    original++;
                     for (int k = 0; k < numbersElfHave.Count; k++)
                     {
                         int currentElfNumber = int.Parse(numbersElfHave[k]);
                         if(currentWiningNumber == currentElfNumber)
                         {
+                           
+                            coppyOfWinningCards++;
                             if(points == 0)
                             {
                                 points = 1;
@@ -44,13 +49,13 @@
                         }
                     }
                 }
-
+               
                 total += points;
                 points = 0;
 
             }
-
-            Console.WriteLine(total);
+            
+            Console.WriteLine(original);
 
         }
     }
