@@ -1,190 +1,65 @@
-﻿//string input = File.ReadAllText("D:\\advent-of-code-2023\\ThirdOfDecember\\input.txt");
-string input = File.ReadAllText("C:\\Мартин\\Moi\\advent of code\\SecondOfDecember\\ThirdOfDecember\\input.txt");
-
-string[] array = input.Split('\n');
-int firstLine = 0;
-int lastLine = 0;
-bool enginPart = false;
-int digitPartFromEngine = 0;
-
-for (int i = 0; i < array.Length; i++)
+﻿namespace _04.fourthDay
 {
-    string currentRow = array[i];
-    if (i == 0)
+    internal class Program
     {
-        firstLine = 1;
-    }
-    else
-    {
-        firstLine = 0;
-    }
-
-    if (i == array.Length - 1)
-    {
-        lastLine = 1;
-    }
-
-    for (int j = 0; j < currentRow.Length; j++)
-    {
-        enginPart = false;
-        int currentDigit = 0;
-        char currentSymbol = currentRow[j];
-        char previousSymbol = '\0';
-        char afterSymbol = '\0';
-
-        int startIndex = -1;
-        int endIndex = -1;
-
-
-        if (Char.IsDigit(currentSymbol))
+        static void Main(string[] args)
         {
-            currentDigit = int.Parse($"{currentSymbol}");
-            if (j > 0)
+
+            //string input = File.ReadAllText("D:\\advent-of-code-2023\\ThirdOfDecember\\input.txt");
+            string[] input = File.ReadAllText("C:\\Мартин\\Moi\\advent of code\\SecondOfDecember\\04.fourthDay\\input.txt").Split("\n");
+
+            int points = 0;
+            int total = 0;
+            int coppyOfWinningCards = 0;
+            int original = 0;
+            for (int i = 0; i < input.Length; i++)
             {
-                previousSymbol = currentRow[j - 1];
-                startIndex = j - 1;
-                if (previousSymbol != '.' && !Char.IsDigit(previousSymbol) && previousSymbol != '\0' && previousSymbol != '\r' && previousSymbol != 0)
+                string[] tokens = input[i].Split(":");
+                string[] bothColons = tokens[1].Split("|");
+
+                string leftSide = bothColons[0].Trim();
+                List<string> winningNumbers = leftSide.Split(" ").ToList();
+                winningNumbers.RemoveAll(s => string.IsNullOrWhiteSpace(s));
+
+                string rightSide = bothColons[1].Trim();
+                List<string> numbersElfHave = rightSide.Split(" ").ToList();
+                numbersElfHave.RemoveAll(s => string.IsNullOrWhiteSpace(s));
+
+                int some = 0;
+
+                List<string> finalList = new List<string>();
+
+                for (int j = 0; j < winningNumbers.Count; j++)
                 {
 
-                    enginPart = true;
-                }
-            }
-        }
-
-        if (j + 1 < currentRow.Length)
-        {
-            char secondSymbol = currentRow[j + 1];
-
-            if (Char.IsDigit(currentSymbol) && Char.IsDigit(secondSymbol))
-            {
-                currentDigit = int.Parse($"{currentSymbol}{secondSymbol}");
-                j++;
-                if (startIndex == -1)
-                {
-                    startIndex = j;
-                }
-
-                if (j + 1 < currentRow.Length)
-                {
-                    endIndex = j + 1;
-                }
-                else
-                {
-                    endIndex = j;
-                }
-                if (j + 1 < currentRow.Length)
-                {
-                    char thirdSymbol = currentRow[j + 1];
-
-                    if (Char.IsDigit(currentSymbol) && Char.IsDigit(secondSymbol) && Char.IsDigit(thirdSymbol))
+                    int currentWiningNumber = int.Parse(winningNumbers[j]);
+                    original++;
+                    for (int k = 0; k < numbersElfHave.Count; k++)
                     {
-                        currentDigit = int.Parse($"{currentSymbol}{secondSymbol}{thirdSymbol}");
-                        j++;
-                        if (j + 1 < currentRow.Length)
+                        int currentElfNumber = int.Parse(numbersElfHave[k]);
+                        if (currentWiningNumber == currentElfNumber)
                         {
-                            endIndex = j + 1;
-                        }
-                        else
-                        {
-                            endIndex = j;
-                        }
 
+                            coppyOfWinningCards++;
+                            if (points == 0)
+                            {
+                                points = 1;
+                            }
+                            else
+                            {
+                                points = points * 2;
+                            }
+                        }
                     }
-
-
                 }
+
+                total += points;
+                points = 0;
 
             }
-            else
-            {
-                if (startIndex == -1)
-                {
-                    startIndex = j;
-                }
 
-                if (j + 1 < currentRow.Length)
-                {
-                    endIndex = j + 1;
-                }
-                else
-                {
-                    endIndex = j;
-                }
-            }
+            Console.WriteLine(original);
 
         }
-
-        if (j + 1 < currentRow.Length)
-        {
-            afterSymbol = currentRow[j + 1];
-            if (afterSymbol != '.' && !Char.IsDigit(afterSymbol) && afterSymbol != '\0' && afterSymbol != '\r' && currentDigit != 0)
-            {
-
-                enginPart = true;
-                j++;
-            }
-        }
-
-
-        if (firstLine == 0 && currentDigit != 0 && startIndex != -1 && endIndex != -1)
-        {
-            string rowBefor = array[i - 1];
-            for (int k = startIndex; k <= endIndex; k++)
-            {
-                char symbolInRowAbove = rowBefor[k];
-                if (symbolInRowAbove != '.' && !Char.IsDigit(symbolInRowAbove) && symbolInRowAbove != '\0' && symbolInRowAbove != '\r')
-                {
-
-                    enginPart = true;
-
-                }
-
-
-
-            }
-        }
-
-
-
-        if (lastLine == 0 && currentDigit != 0 && startIndex != -1 && endIndex != -1)
-        {
-            string rowAfter = array[i + 1];
-            for (int l = startIndex; l <= endIndex; l++)
-            {
-                char symbolInRowUnder = rowAfter[l];
-                if (symbolInRowUnder != '.' && !Char.IsDigit(symbolInRowUnder) && symbolInRowUnder != '\0' && symbolInRowUnder != '\r')
-                {
-
-                    enginPart = true;
-
-                }
-
-
-
-            }
-        }
-
-        if (enginPart)
-        {
-
-            digitPartFromEngine += currentDigit;
-            continue;
-        }
-
-
     }
-
-
 }
-
-
-Console.WriteLine(digitPartFromEngine);
-
-
-//if (m + 1 == l || nestedIndexOf - 1 == l || nestedIndexOf == l || nestedIndexOf2 == l)
-//{
-//    multiplying = currentDigit * nestedDigit;
-//    Console.WriteLine(currentDigit);
-//    Console.WriteLine(nestedDigit);
-//    digitPartFromEngine += multiplying;
-//}
